@@ -182,7 +182,7 @@ class GaussianProcessOptimization(object):
                                                  self.bounds[1][1],
                                                  n_samples[1])],
                                     figure=figure,
-                                    axis=axis)
+                                    axis=axis,**kwargs)
 
     def _add_context(self, x, context):
         """Add the context to a vector.
