@@ -335,7 +335,7 @@ def plot_contour_gp(gp, inputs, predictions=None, figure=None, axis=None,
         """
         if axis is None:
             if figure is None:
-                figure = plt.figure()
+                figure = plt.figure(**kwargs)
                 axis = figure.gca()
             else:
                 axis = figure.gca()
