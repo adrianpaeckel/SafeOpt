@@ -674,7 +674,7 @@ class SafeOpt(GaussianProcessOptimization):
 
         return self.get_new_query_point(ucb=ucb)
 
-    def get_maximum(self, context=None):
+    def get_maximum(self, context=None,mean_estimate=True):
         """
         Return the current estimate for the maximum.
 
@@ -696,11 +696,16 @@ class SafeOpt(GaussianProcessOptimization):
         Run update_confidence_intervals first if you recently added a new data
         point.
         """
+        if mean_estimate is True:
+            beta_=self.beta
+            self.beta=lambda t:0
+        else: beta_=self.beta
+
         self.update_confidence_intervals(context=context)
 
         # Compute the safe set (that's cheap anyways)
         self.compute_safe_set()
-
+        self.beta=beta_
         # Return nothing if there are no safe points
         if not np.any(self.S):
             return None
